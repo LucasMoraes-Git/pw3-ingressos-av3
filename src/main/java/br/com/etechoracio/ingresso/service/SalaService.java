@@ -1,5 +1,6 @@
 package br.com.etechoracio.ingresso.service;
 
+import br.com.etechoracio.ingresso.dto.SalaRequestDTO;
 import br.com.etechoracio.ingresso.dto.SalaResponseDTO;
 import br.com.etechoracio.ingresso.mapper.SalaMapper;
 import br.com.etechoracio.ingresso.repository.SalaRepository;
@@ -28,5 +29,12 @@ public class SalaService {
     {
         var sala = repository.buscarSalaPorId(idSala);
         return sala.map(valor -> mapper.entidadeSalaParaSalaResponse(valor)).orElse(null);
+    }
+
+    public SalaResponseDTO cadastrarSala(SalaRequestDTO request)
+    {
+        var sala = repository.save(mapper.salaRequestParaEntidade(request));
+
+        return mapper.entidadeSalaParaSalaResponse(sala);
     }
 }

@@ -1,14 +1,13 @@
 package br.com.etechoracio.ingresso.controller;
 
 
+import br.com.etechoracio.ingresso.dto.SalaRequestDTO;
 import br.com.etechoracio.ingresso.dto.SalaResponseDTO;
 import br.com.etechoracio.ingresso.service.SalaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,6 +36,13 @@ public class SalaController {
         }
 
         return ResponseEntity.ok(sala);
+    }
+
+    @PostMapping("cadastro-sala")
+    public ResponseEntity<SalaResponseDTO> cadastrarSala(@RequestBody SalaRequestDTO request)
+    {
+        var sala = service.cadastrarSala(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(sala);
     }
 
 }
