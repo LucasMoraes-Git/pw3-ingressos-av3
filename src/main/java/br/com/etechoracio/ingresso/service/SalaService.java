@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SalaService {
@@ -21,5 +22,11 @@ public class SalaService {
     {
         var salas = repository.findAll();
         return salas.stream().map(sala -> mapper.entidadeSalaParaSalaResponse(sala)).toList();
+    }
+
+    public SalaResponseDTO buscarSalaPorId(Long idSala)
+    {
+        var sala = repository.buscarSalaPorId(idSala);
+        return sala.map(valor -> mapper.entidadeSalaParaSalaResponse(valor)).orElse(null);
     }
 }
